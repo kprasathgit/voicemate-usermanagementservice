@@ -29,8 +29,8 @@ public class UserController {
 	public ResponseEntity<Optional<UserPojo>> getUserByEmail(@RequestParam String email) {
 
 		try {
-			Optional<UserPojo> userPojo = userService.findByEmail(email);
-			return new ResponseEntity<Optional<UserPojo>>(userPojo, HttpStatus.OK);
+			
+			return new ResponseEntity<Optional<UserPojo>>(userService.findByEmail(email), HttpStatus.OK);
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
 		}
