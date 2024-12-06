@@ -1,7 +1,7 @@
 package com.voicemate.usermanagementservice.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.voicemate.usermanagementservice.common.Result;
 import com.voicemate.usermanagementservice.entities.User;
-import com.voicemate.usermanagementservice.model.UserPojo;
 import com.voicemate.usermanagementservice.service.UserService;
 
 @RestController
@@ -30,10 +30,11 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping(value = "/getuserbyemail")
-	public ResponseEntity<Optional<UserPojo>> getUserByEmail(@RequestParam String email) {
+	public ResponseEntity<?> getUserByEmail(@RequestParam String email) {
 
 		try {
-			return new ResponseEntity<Optional<UserPojo>>(userService.findByEmail(email), HttpStatus.OK);
+			Result result = userService.findByEmail(email);
+			return new ResponseEntity<Result>(result, HttpStatus.OK);
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
 		}
@@ -43,6 +44,10 @@ public class UserController {
 	@PostMapping("/saveuser")
 	public ResponseEntity<List<User>> saveUser(@RequestBody List<User> listUsers) {
 		try {
+			
+			for (User user : listUsers) {
+				user.setCreatedat(LocalDateTime.now());
+			}
 			return new ResponseEntity<List<User>>(userService.saveUsers(listUsers), HttpStatus.OK);
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage());

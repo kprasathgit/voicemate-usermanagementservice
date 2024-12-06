@@ -1,14 +1,14 @@
 package com.voicemate.usermanagementservice.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.voicemate.usermanagementservice.common.Result;
 import com.voicemate.usermanagementservice.entities.User;
-import com.voicemate.usermanagementservice.model.UserPojo;
 import com.voicemate.usermanagementservice.repository.UserRepository;
+import com.voicemate.usermanagementservice.repositorycustom.UserRepositoryCustom;
 
 import jakarta.transaction.Transactional;
 
@@ -17,9 +17,12 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private UserRepositoryCustom userRepositoryCustom;
 
-	public Optional<UserPojo> findByEmail(String email) throws Exception {
-		return userRepository.findByEmail(email);
+	public Result findByEmail(String email) throws Exception {
+		return userRepositoryCustom.findByEmail(email);
 	}
 
 	@Transactional

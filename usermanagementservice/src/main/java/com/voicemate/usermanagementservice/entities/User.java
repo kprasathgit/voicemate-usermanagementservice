@@ -40,7 +40,7 @@ public class User {
 	
 	private boolean is2faenabled;
 
-	@Column(length = 50)
+	@Column(columnDefinition = "varchar(60) DEFAULT NULL")
 	private String phonenumber;
 
 	private String twofactorauthtoken;
@@ -48,7 +48,7 @@ public class User {
 	@Column(nullable = false)
 	private LocalDateTime createdat;
 
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private LocalDateTime updatedat;
 
 }
