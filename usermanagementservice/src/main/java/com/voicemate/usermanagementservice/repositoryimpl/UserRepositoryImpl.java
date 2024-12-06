@@ -1,41 +1,42 @@
 package com.voicemate.usermanagementservice.repositoryimpl;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.voicemate.usermanagementservice.model.UserPojo;
+import com.voicemate.usermanagementservice.common.Result;
+import com.voicemate.usermanagementservice.entities.User;
 import com.voicemate.usermanagementservice.query.UserQuery;
-import com.voicemate.usermanagementservice.repository.UserRepository;
+import com.voicemate.usermanagementservice.repositorycustom.UserRepositoryCustom;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 
 @Repository
-public abstract class UserRepositoryImpl implements UserRepository {
+public  class UserRepositoryImpl implements UserRepositoryCustom {
 
-	@Autowired
+	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Autowired
 	private UserQuery userQuery;
 
 	@Override
-	public Optional<UserPojo> findByEmail(String email) throws Exception {
+	public Result findByEmail(String email) throws Exception {
 
 		try {
-			Query nativeQuery = entityManager.createNativeQuery(userQuery.findByEmail(), UserPojo.class);
-			nativeQuery.setParameter("email", nativeQuery);
+			Query jpqlQuery = entityManager.createNativeQuery(userQuery.findByEmail(), User.class);
+			jpqlQuery.setParameter("email", jpqlQuery);
 			// Execute query and get the result as a UserPojo object
-			UserPojo user = (UserPojo) nativeQuery.getSingleResult();
-			return Optional.of(user);
+			User user = (User) jpqlQuery.getSingleResult();
+			return new Result(true, user);
 		} catch (Exception e) {
-			System.out.println(e);
-			throw new Exception(e.getMessage());
-//			return Optional.empty();
+			return new Result(false, e.getMessage());
 		}
-
+		
 	}
 
+	
 }

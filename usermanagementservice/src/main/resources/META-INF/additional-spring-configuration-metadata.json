@@ -1,0 +1,42 @@
+{"properties": [
+  {
+    "name": "spring.datasource.db1.username",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.db1.username'"
+  },
+  {
+    "name": "spring.datasource.db1.password",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.db1.password'"
+  },
+  {
+    "name": "spring.datasource.db1.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.db1.driver-class-name'"
+  },
+  {
+    "name": "spring.datasource.db1.url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.db1.url'"
+  },
+  {
+    "name": "spring.datasource.db2.url",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.db2.url'"
+  },
+  {
+    "name": "spring.datasource.db2.username",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.db2.username'"
+  },
+  {
+    "name": "spring.datasource.db2.password",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.db2.password'"
+  },
+  {
+    "name": "spring.datasource.db2.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.db2.driver-class-name'"
+  }
+]}
