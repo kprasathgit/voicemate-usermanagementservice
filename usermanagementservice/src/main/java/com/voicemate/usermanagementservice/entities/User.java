@@ -22,19 +22,25 @@ public class User {
 	@Column(nullable = false, unique = true)
 	private String email;
 
-	@Column(nullable = false, length = 25)
+	@Column(nullable = false ,length = 100)
 	private String firstname;
 
+	@Column(length = 100)
 	private String lastname;
 
+	@Column(length = 100)
 	private String password; // To be encrypted
 
+	@Column(length = 100)
 	private String oauth2provider;
 
+	@Column(length = 100)
 	private String oauth2providerid;
 
+	
 	private boolean is2faenabled;
 
+	@Column(length = 50)
 	private String phonenumber;
 
 	private String twofactorauthtoken;
