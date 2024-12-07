@@ -1,4 +1,4 @@
-package com.voicemate.usermanagementservice.entities;
+package com.voicemate.usermanagementservice.entities.db1entity;
 
 import java.time.LocalDateTime;
 

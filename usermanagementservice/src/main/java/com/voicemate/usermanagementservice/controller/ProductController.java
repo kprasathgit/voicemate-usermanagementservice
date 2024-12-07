@@ -1,7 +1,6 @@
 package com.voicemate.usermanagementservice.controller;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,23 +16,23 @@ import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.voicemate.usermanagementservice.common.Result;
-import com.voicemate.usermanagementservice.entities.db1entity.User;
-import com.voicemate.usermanagementservice.service.UserService;
+import com.voicemate.usermanagementservice.entities.db2entity.Product;
+import com.voicemate.usermanagementservice.service.ProductService;
 
 @RestController
-@RequestMapping(value = "user")
-@CrossOrigin(origins = "*")
+@RequestMapping(value = "/product")
+@CrossOrigin("*")
 @SessionScope
-public class UserController {
+public class ProductController {
 
 	@Autowired
-	private UserService userService;
+	private ProductService productService;
 
-	@GetMapping(value = "/getuserbyemail")
-	public ResponseEntity<?> getUserByEmail(@RequestParam String email) {
+	@GetMapping("/findbyproductname")
+	public ResponseEntity<?> findByProductName(@RequestParam String productname) throws Exception {
 
 		try {
-			Result result = userService.findByEmail(email);
+			Result result = productService.findByProductName(productname);
 			return new ResponseEntity<Result>(result, HttpStatus.OK);
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
@@ -41,17 +40,17 @@ public class UserController {
 
 	}
 
-	@PostMapping("/saveuser")
-	public ResponseEntity<List<User>> saveUser(@RequestBody List<User> listUsers) {
+	@PostMapping("/saveproduct")
+	public ResponseEntity<?> saveProduct(@RequestBody Product product) {
+
 		try {
-			
-			for (User user : listUsers) {
-				user.setCreatedat(LocalDateTime.now());
-			}
-			return new ResponseEntity<List<User>>(userService.saveUsers(listUsers), HttpStatus.OK);
+			product.setCreatedAt(LocalDateTime.now());
+			Product savedProduct = productService.saveProduct(product);
+			return new ResponseEntity<Product>(savedProduct, HttpStatus.OK);
+
 		} catch (Exception e) {
+
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
 		}
 	}
-
 }
