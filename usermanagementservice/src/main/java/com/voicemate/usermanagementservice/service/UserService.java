@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.voicemate.usermanagementservice.common.Result;
-import com.voicemate.usermanagementservice.entities.User;
-import com.voicemate.usermanagementservice.repository.UserRepository;
-import com.voicemate.usermanagementservice.repositorycustom.UserRepositoryCustom;
+import com.voicemate.usermanagementservice.entities.db1entity.User;
+import com.voicemate.usermanagementservice.repository.db1repo.UserRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -17,12 +16,9 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
-	@Autowired
-	private UserRepositoryCustom userRepositoryCustom;
 
 	public Result findByEmail(String email) throws Exception {
-		return userRepositoryCustom.findByEmail(email);
+		return userRepository.findByEmail(email);
 	}
 
 	@Transactional
