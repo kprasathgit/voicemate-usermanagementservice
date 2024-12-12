@@ -1,5 +1,6 @@
 package com.voicemate.apigatewayservice.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.filter.ratelimit.RedisRateLimiter;
 import org.springframework.cloud.gateway.route.RouteLocator;
@@ -7,6 +8,7 @@ import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.web.reactive.config.EnableWebFlux;
@@ -17,6 +19,9 @@ import reactor.core.publisher.Mono;
 @Configuration // Marks this class as a configuration class, allowing Spring to process it.
 @EnableWebFlux // Enables WebFlux support (needed for non-blocking reactive routes).
 public class Config {
+
+	@Autowired
+	private StringRedisTemplate redisTemplate;
 
 	/**
 	 * This bean configures security settings for the API Gateway. It disables CSRF
@@ -94,6 +99,36 @@ public class Config {
 
 				values.forEach(value -> System.out.println(name + "=" + value));
 			});
+
+			// Session management: Track user sessions using Redis
+			String sessionKey = "session:" + exchange.getRequest().getHeaders().getFirst("Authorization");
+			String sessionData = redisTemplate.opsForValue().get(sessionKey);
+
+			if (sessionData == null) {
+				// Session not found, perform necessary actions like authentication check
+
+			} else {
+
+			}
+
+			// Check if the requested translation exists in the cache
+			String cacheKey = "translation:" + exchange.getRequest().getQueryParams().getFirst("text");
+			String cachedTranslation = redisTemplate.opsForValue().get(cacheKey);
+
+			if (cachedTranslation != null) {
+				// If translation is cached, return it immediately
+				System.out.println("Cache hit: Returning cached translation for text: "
+						+ exchange.getRequest().getQueryParams().getFirst("text"));
+
+				// Create a DataBuffer from the cached translation
+				DataBuffer buffer = exchange.getResponse().bufferFactory().wrap(cachedTranslation.getBytes());
+
+				// Write the buffer to the response and return
+				return exchange.getResponse().writeWith(Flux.just(buffer));
+			} else {
+				// If translation is not cached, allow the request to continue and cache the
+				// result for future use
+			}
 
 			// Proceed with the request and capture the response
 			return chain.filter(exchange).doOnTerminate(() -> {
