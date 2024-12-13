@@ -58,8 +58,12 @@ public class Config {
 	 */
 	@Bean
 	RouteLocator rateLimitingRoutes(RouteLocatorBuilder routeLocatorBuilder) {
-		return routeLocatorBuilder.routes().route("UserManagementService",
-				r -> r.path("/usermanagement/**").uri("http://localhost:8085/usermanagement")).build();
+		return routeLocatorBuilder.routes()
+				.route("UserManagementService",
+						r -> r.path("/usermanagement/**")
+								.filters(f -> f.requestRateLimiter(t -> t.setRateLimiter(redisRateLimiter())))
+								.uri("http://localhost:8085/usermanagement"))
+				.build();
 
 	}
 
