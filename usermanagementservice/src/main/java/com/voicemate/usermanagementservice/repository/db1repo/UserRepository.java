@@ -6,5 +6,5 @@ import com.voicemate.usermanagementservice.common.Result;
 import com.voicemate.usermanagementservice.entities.db1entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-	public Result findByEmail(String email) throws Exception;
+	public User findByUsername(String username) throws Exception;
 }

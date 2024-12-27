@@ -16,15 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.voicemate.usermanagementservice.common.Result;
 import com.voicemate.usermanagementservice.entities.db1entity.User;
 import com.voicemate.usermanagementservice.service.UserService;
 
 @RestController
 @RequestMapping(value = "user")
 @CrossOrigin(origins = "*")
-@SessionScope
-public class UserController {
+class UserController {
 
 	@Autowired
 	private UserService userService;
@@ -33,8 +31,8 @@ public class UserController {
 	public ResponseEntity<?> getUserByEmail(@RequestParam String email) {
 
 		try {
-			Result result = userService.findByEmail(email);
-			return new ResponseEntity<Result>(result, HttpStatus.OK);
+			User user = userService.findByEmail(email);
+			return new ResponseEntity<>(user, HttpStatus.OK);
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
 		}
@@ -44,7 +42,7 @@ public class UserController {
 	@PostMapping("/saveuser")
 	public ResponseEntity<List<User>> saveUser(@RequestBody List<User> listUsers) {
 		try {
-			
+
 			for (User user : listUsers) {
 				user.setCreatedat(LocalDateTime.now());
 			}

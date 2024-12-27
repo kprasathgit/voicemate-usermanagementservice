@@ -20,15 +20,15 @@ public class User {
 	private Long id;
 
 	@Column(nullable = false, unique = true)
-	private String email;
+	private String username;
 
-	@Column(nullable = false ,length = 100)
+	@Column(nullable = false, length = 100)
 	private String firstname;
 
 	@Column(length = 100)
 	private String lastname;
 
-	@Column(length = 100)
+	@Column(length = 100 ,nullable = false)
 	private String password; // To be encrypted
 
 	@Column(length = 100)
@@ -37,7 +37,6 @@ public class User {
 	@Column(length = 100)
 	private String oauth2providerid;
 
-	
 	private boolean is2faenabled;
 
 	@Column(columnDefinition = "varchar(60) DEFAULT NULL")

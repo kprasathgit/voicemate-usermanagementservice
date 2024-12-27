@@ -17,8 +17,9 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
-	public Result findByEmail(String email) throws Exception {
-		return userRepository.findByEmail(email);
+	public User findByEmail(String username) throws Exception {
+		return userRepository.findByUsername(username);
+
 	}
 
 	@Transactional
