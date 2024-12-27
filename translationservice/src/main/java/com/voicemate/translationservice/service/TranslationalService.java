@@ -19,13 +19,20 @@ public class TranslationalService {
 	@Value("${google.cloud.translation.default.language}")
 	private String defaultLanguage;
 
-	private final Translate translate;
+	private Translate translate;
 
 	// Constructor initializes the Google Cloud Translation API service
 	public TranslationalService() {
 
 		this.translate = TranslateOptions.getDefaultInstance().getService();
 	}
+
+	// Use @PostConstruct to initialize the Translate service after dependency
+	// injection
+//	@PostConstruct
+//	public void init() {
+//		this.translate = TranslateOptions.getDefaultInstance().getService();
+//	}
 
 	/**
 	 * Automatically detects the language of the text.
