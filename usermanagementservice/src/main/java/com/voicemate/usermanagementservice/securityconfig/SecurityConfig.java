@@ -26,10 +26,10 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-		/*
+		/**
 		 * BY DEFAULT USER PASSWORD AUTHENTICATION FILTER(UPAF) ACTIVATED FIRST.IF WE WE
 		 * WANT TO ADD ANY OTHER FILTER BEFORE USER PASSWORD AUTHENTICATION FILTER
-		 * (eg.JWT Authentication) THEN WE WANT TO MENTION IT
+		 * (eg.JWT Authentication) THEN WE WANT TO MENTION IT.
 		 */
 
 		http.csrf(csrf -> csrf.disable()) // Disable CSRF for simplicity (not recommended for production)
@@ -77,7 +77,7 @@ public class SecurityConfig {
 //		return new InMemoryUserDetailsManager(userDetails);
 //	}
 
-	/*
+	/**
 	 * Spring Security hits authentication manager first then authentication manager
 	 * will talk to Authentication Provider..In our case we overrided authentication
 	 * provider..
