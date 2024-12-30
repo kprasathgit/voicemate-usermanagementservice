@@ -23,6 +23,9 @@ public class SecurityConfig {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
+	@Autowired
+	private JwtFilter jwtFilter;
+
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -46,8 +49,8 @@ public class SecurityConfig {
 				).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				// .formLogin(Customizer.withDefaults())
 				.httpBasic(Customizer.withDefaults())
-				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-				;
+				// Here we are saying before UserPasswordAuthentication use jwtFilter.
+				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 
