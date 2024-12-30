@@ -59,7 +59,7 @@ public class User {
 
 	@Column(nullable = true)
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSSSSS")
-	private LocalDateTime updatedat;
+	private LocalDateTime updateddatetime;
 
 	// Fields for user's local time
 	@Column(nullable = true)
