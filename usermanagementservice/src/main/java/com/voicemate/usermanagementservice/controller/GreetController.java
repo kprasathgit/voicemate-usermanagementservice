@@ -14,4 +14,9 @@ public class GreetController {
 	private String greet() {
 		return "USER MANAGEMENT SERVICE STARTED";
 	}
+
+	@GetMapping("/github")
+	private String gitHubLogin() {
+		return "GIT LOGIN SUCCESSFUL";
+	}
 }

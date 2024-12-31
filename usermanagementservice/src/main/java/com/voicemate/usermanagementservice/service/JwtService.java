@@ -1,14 +1,11 @@
 
 package com.voicemate.usermanagementservice.service;
 
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -100,7 +97,6 @@ public class JwtService {
 	 * @return the username extracted from the token
 	 */
 	public String extractUserNameFromToken(String token) {
-		// extract the username from jwt token
 		return extractClaim(token, Claims::getSubject);
 	}
 
