@@ -15,8 +15,13 @@ public class GreetController {
 		return "USER MANAGEMENT SERVICE STARTED";
 	}
 
-	@GetMapping("/github")
-	private String gitHubLogin() {
-		return "GIT LOGIN SUCCESSFUL";
+	@GetMapping("/login-success")
+	public String loginSuccess() {
+	    return "GitHub Login Successful!";
 	}
+
+//	@GetMapping("/github")
+//	private String gitHubLogin() {
+//		return "GIT LOGIN SUCCESSFUL";
+//	}
 }

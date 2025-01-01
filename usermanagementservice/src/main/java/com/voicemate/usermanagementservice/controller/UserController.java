@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.voicemate.usermanagementservice.entities.db1entity.User;
@@ -21,6 +22,7 @@ import com.voicemate.usermanagementservice.service.UserService;
 @RestController
 @RequestMapping(value = "user")
 @CrossOrigin(origins = "*")
+@SessionScope
 class UserController {
 
 	@Autowired
