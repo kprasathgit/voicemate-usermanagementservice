@@ -47,9 +47,11 @@ public class SecurityConfig {
 								.permitAll().anyRequest().authenticated() // Require authentication for other routes
 
 				)
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
-				 .formLogin(Customizer.withDefaults())				
-				   .oauth2Login(Customizer.withDefaults()
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.NEVER))
+				// .formLogin(Customizer.withDefaults())				
+				   .oauth2Login(oauth2 -> oauth2
+	                        .defaultSuccessUrl("/", true) // Redirect to /home after successful login.
+	                        .failureUrl("/login?error=true") // Redirect to /login with error on failure.
 	                ).
 				
 				httpBasic(Customizer.withDefaults())
