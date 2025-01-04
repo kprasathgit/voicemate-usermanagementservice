@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.voicemate.usermanagementservice.entities.db1entity.User;
 
+//
 public class UserPrincipal implements UserDetails {
 
 	/**
