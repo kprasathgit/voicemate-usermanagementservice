@@ -147,4 +147,11 @@ public class SecurityConfig {
  * customizer.disable(); } };
  */
 
+//
+//spring.security.oauth2.client.registration.github.client-id=Ov23liTt5nbK0HgsZ1CC
+//spring.security.oauth2.client.registration.github.client-secret=c12db47f660cd8b362c0d50d46c4c495691a904e
+//
+//spring.security.oauth2.client.registration.google.client-id=470422928140-qn6tf5ltoehpua9uasvl0585o2kf0npf.apps.googleusercontent.com
+//spring.security.oauth2.client.registration.google.client-secret=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
+//
 
