@@ -46,15 +46,9 @@ public class SecurityConfig {
 								 */
 								.permitAll().anyRequest().authenticated() // Require authentication for other routes
 
-				)
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.NEVER))
-				// .formLogin(Customizer.withDefaults())				
-				   .oauth2Login(oauth2 -> oauth2
-	                        .defaultSuccessUrl("/", true) // Redirect to /home after successful login.
-	                        .failureUrl("/login?error=true") // Redirect to /login with error on failure.
-	                ).
-				
-				httpBasic(Customizer.withDefaults())
+				).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				// .formLogin(Customizer.withDefaults())
+				.httpBasic(Customizer.withDefaults())
 				// Here we are saying before UserPasswordAuthentication use jwtFilter.
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
@@ -116,7 +110,7 @@ public class SecurityConfig {
 
 	@Bean
 	BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder(12);
+		return new BCryptPasswordEncoder(5);
 	}
 
 }
@@ -148,12 +142,3 @@ public class SecurityConfig {
  * 
  * customizer.disable(); } };
  */
-
-//
-//spring.security.oauth2.client.registration.github.client-id=Ov23liTt5nbK0HgsZ1CC
-//spring.security.oauth2.client.registration.github.client-secret=c12db47f660cd8b362c0d50d46c4c495691a904e
-//
-//spring.security.oauth2.client.registration.google.client-id=470422928140-qn6tf5ltoehpua9uasvl0585o2kf0npf.apps.googleusercontent.com
-//spring.security.oauth2.client.registration.google.client-secret=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
-//
-
